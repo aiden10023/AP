@@ -186,7 +186,7 @@
       const total_registered = 93204248;
       const perc_gop = ((total_gop_votes / total_registered) * 100).toFixed(1);
       const perc_dem = ((total_dem_votes / total_registered) * 100).toFixed(1);
-      const reporting_pct = ((total_votes / total_registered) * 100).toFixed(1);
+      const reporting_pct = Math.round((total_votes / total_registered) * 100);
 
       document.getElementById('bush-votes').textContent = ev_bush;
       document.getElementById('clinton-votes').textContent = ev_clinton;
@@ -242,6 +242,7 @@
         const perc_gop = total > 0 ? ((gop_votes / total) * 100).toFixed(1) : 0;
         const perc_dem = total > 0 ? ((dem_votes / total) * 100).toFixed(1) : 0;
         const winner = p.winner === 'UNKNOWN' ? 'Uncalled' : p.winner;
+        const reporting_pct = Math.round(Number(p.reporting || 0));
 
         const gopCandidate = p.gop_candidate || 'Bush';
         const demCandidate = p.dem_candidate || 'Clinton';
@@ -253,7 +254,7 @@
           .setHTML(`
             <strong>${p.NAME}</strong><br/>
             <b>Electoral Votes:</b> ${p.electoral_votes || 0}<br/>
-            <b>Reporting:</b> ${p.reporting || 0}%<br/>
+            <b>Reporting:</b> ${reporting_pct}%<br/>
             <b><span style="color: #d12c0f;">${gopCheck}${gopCandidate}</span>:</b> ${gop_votes.toLocaleString()} (${perc_gop}%)<br/>
             <b><span style="color: #0e47e6;">${demCheck}${demCandidate}</span>:</b> ${dem_votes.toLocaleString()} (${perc_dem}%)<br/>
             <b>Winner:</b> ${winner}
